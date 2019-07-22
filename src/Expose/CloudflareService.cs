@@ -132,7 +132,7 @@ namespace Expose
 
         internal static async Task<bool> DoesRecordExist(string zoneId, string recordName)
         {
-            var record = await GetRecord(zoneId, recordName);
+            var record = await GetRecord(zoneId, recordName, true);
             return record != null;
         }
 

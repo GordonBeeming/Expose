@@ -14,9 +14,10 @@ namespace Expose
         private const string CloudflareAuthKey = "{0D86E3A2-6E23-4B12-A4CD-231311445456}";
         private const string CloudflareZoneId = "{78368FCA-735F-49F5-9F82-702527FF5DC0}";
         private const string NGrokDnsWildCardRecord = "{5C8E0FDF-0B81-4679-8C3A-4FFF2EDD0D87}";
+        private const string NGrokSubDomainInclude = "{0CC688BF-DABB-4B00-A252-C9EC696A35E4}";
         private const string NGrokRegionCode = "{FAEC8EDB-EB2F-45CC-8D1F-4FB3F032D0C7}";
 
-        internal static string[] Clense(string[] args) => args?.Select(o => o.Trim('"')).ToArray() ?? new string[0];
+        internal static string[] Cleanse(string[] args) => args?.Select(o => o.Trim('"')).ToArray() ?? new string[0];
 
         internal static async Task<bool> IsCloudflareAuthReady()
         {
@@ -96,6 +97,23 @@ namespace Expose
             return GetSetting(NGrokDnsWildCardRecord);
         }
 
+        internal const string SetNGrokSubDomainIncludeCmd = @"[set.ngrok.dns.include] ""<sub domain include value>""";
+        internal static Task SetNGrokSubDomainInclude(string[] args)
+        {
+            var value = args[1];
+            value = CleanseSubDomain(value);
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                value = $"-{value}";
+            }
+            return SetSetting("NGrok sub domain include", NGrokSubDomainInclude, value);
+        }
+
+        internal static Task<string> GetNGrokSubDomainInclude()
+        {
+            return GetSetting(NGrokSubDomainInclude);
+        }
+
         internal const string SetNGrokRegionCodeCmd = @"[set.ngrok.region.code] ""<region value>""";
         internal static Task SetNGrokRegionCode(string[] args)
         {
@@ -149,5 +167,7 @@ namespace Expose
             var filename = Path.Combine(path, $"{key}.data");
             return filename;
         }
+
+        internal static string CleanseSubDomain(string input) => new string(input.Where(o => char.IsLetter(o) || char.IsNumber(o) || o == '-' || o == '_').Select(o => o).ToArray());
     }
 }

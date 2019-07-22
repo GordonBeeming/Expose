@@ -35,6 +35,8 @@ namespace Expose
                     return CloudflareService.SetZoneId;
                 case "set.ngrok.dns.wildcard":
                     return Settings.SetNGrokDnsWildCardRecord;
+                case "set.ngrok.dns.include":
+                    return Settings.SetNGrokSubDomainInclude;
                 case "set.ngrok.region.code":
                     return Settings.SetNGrokRegionCode;
             }
@@ -73,6 +75,7 @@ expose {Settings.SetCloudflareAuthTokenCmd} __*OR*__ expose {Settings.SetCloudfl
                                                expose {Settings.SetCloudflareAuthKeyCmd}
 expose {Settings.SetCloudflareZoneIdCmd} __*OR*__ expose {CloudflareService.SetZoneIdCmd}
 expose {Settings.SetNGrokDnsWildCardRecordCmd}
+expose {Settings.SetNGrokSubDomainIncludeCmd}
 expose {Settings.SetNGrokRegionCodeCmd}
 
 __*Usage*__

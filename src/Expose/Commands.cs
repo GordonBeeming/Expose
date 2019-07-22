@@ -39,12 +39,14 @@ namespace Expose
                 App.ShowMenuWithError("Port Number needs to be a valid integer!");
                 return;
             }
-            var subDomain = new string(args[3].Where(o => char.IsLetter(o) || char.IsNumber(o) || o == '-' || o == '_').Select(o => o).ToArray());
+            var subDomain = Settings.CleanseSubDomain(args[3]);
             if (string.IsNullOrWhiteSpace(subDomain))
             {
                 App.ShowMenuWithError("Subdomain is required and can only contain letters, numbers dashes (-) or underscores (_).");
                 return;
             }
+            var subdomainInclude = await Settings.GetNGrokSubDomainInclude();
+            subDomain = $"{subDomain}{subdomainInclude}";
             args[3] = subDomain;
             var response = await AddBindingToCloudflare(args);
             if (!response.success)

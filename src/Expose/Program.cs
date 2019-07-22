@@ -12,7 +12,7 @@ namespace Expose
         static async Task Main(string[] args)
         {
             SetConsoleColours();
-            args = Settings.Clense(args);
+            args = Settings.Cleanse(args);
             var command = App.GetCommand(args);
             if (command == null)
             {
