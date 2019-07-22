@@ -34,7 +34,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)\Expose\bin\Release\'
+    rootFolderOrFile: '$(Build.SourcesDirectory)\src\Expose\bin\$(buildConfiguration)\'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/Expose-$(Build.BuildNumber).zip'
