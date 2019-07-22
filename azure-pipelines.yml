@@ -6,6 +6,8 @@
 trigger:
 - master
 
+name: $(Build.DefinitionName)-$(date:yyyyMMdd)$(rev:.r)
+
 pool:
   vmImage: 'windows-latest'
 
@@ -20,6 +22,14 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+
+- task: VersionAssemblies@2
+  inputs:
+    Path: '$(Build.SourcesDirectory)'
+    VersionNumber: '$(Build.BuildNumber)'
+    InjectVersion: true
+    FilenamePattern: 'AssemblyInfo.*'
+    OutputVersion: 'OutputedVersion'
 
 - task: VSBuild@1
   inputs:
