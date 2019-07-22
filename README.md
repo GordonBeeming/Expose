@@ -2,6 +2,10 @@
 
 More/Some docs will come still
 
+## Build Status
+
+[![Build Status](https://dev.azure.com/beeming/github/_apis/build/status/Gordon-Beeming.Expose-https-dev-site-using-ngrok-and-Cloudflare?branchName=master)](https://dev.azure.com/beeming/github/_build/latest?definitionId=25&branchName=master)
+
 ## Basic overview
 
 I use [ngrok](https://ngrok.com/) and [cloudflare](https://cloudflare.com/) a lot for personal projects and demos. I've like the idea of using the whitelabeling part of ngrok for a long time because it's different (for no other reason 😅). Since starting to use my [beeming.net](beeming.net) and now my [beeming.dev](beeming.dev) domains for ngrok I've run into a little problem because I both those domains are in the HSTS preload list built into browsers. 
