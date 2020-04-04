@@ -19,7 +19,7 @@ namespace Expose
     internal const string ExposeSecurePortCmd = "[s-port] <443> as <ngrok-site>";
     internal static Task ExposeSecurePort(string[] args)
     {
-      return ExposePortPrivate(args, "http https://localhost:");
+      return ExposePortPrivate(args, "http ");
     }
 
     internal const string ExposePortCmd = "[port] <80> as <ngrok-site>";
@@ -30,11 +30,25 @@ namespace Expose
 
     private static async Task ExposePortPrivate(string[] args, string command)
     {
-      int portNumber;
-      if (!int.TryParse(args[1], out portNumber))
+      var hostHeader = "localhost";
+      string portNumberOrHttpPath = args[1];
+      if (!portNumberOrHttpPath.StartsWith("http", StringComparison.InvariantCultureIgnoreCase))
       {
-        App.ShowMenuWithError("Port Number needs to be a valid integer!");
-        return;
+        if (!int.TryParse(args[1], out int portNumber))
+        {
+          App.ShowMenuWithError("Port Number or HTTP Path needs to be a valid integer or url for example https://beeming.dev!");
+          return;
+        }
+        command += $"https://localhost:{portNumber}";
+      }
+      else
+      {
+        if (portNumberOrHttpPath.IndexOf("://") == -1)
+        {
+          App.ShowMenuWithError("Port Number or HTTP Path needs to be a valid integer or url for example https://beeming.dev!");
+          return;
+        }
+        hostHeader = portNumberOrHttpPath.Remove(0, portNumberOrHttpPath.IndexOf("://") + 3);
       }
       var subDomain = Settings.CleanseSubDomain(args[3]);
       if (string.IsNullOrWhiteSpace(subDomain))
@@ -51,14 +65,13 @@ namespace Expose
         return;
       }
 
-      var hostHeader = "localhost";
       var ngrokDnsWildCard = await Settings.GetNGrokDnsWildCardRecord();
       var ngrokRegion = await Settings.GetNGrokRegionCode() ?? "us";
 
       var handle = GetConsoleWindow();
       ShowWindow(handle, SW_HIDE);
 
-      var process = Process.Start("ngrok", $@"{command}{portNumber} -hostname {subDomain}.{ngrokDnsWildCard} -region ""{ngrokRegion}"" --host-header {hostHeader} --bind-tls ""true""");
+      var process = Process.Start("ngrok", $@"{command}{portNumberOrHttpPath} -hostname {subDomain}.{ngrokDnsWildCard} -region ""{ngrokRegion}"" --host-header {hostHeader} --bind-tls ""true""");
       process.WaitForExit();
 
       ShowWindow(handle, SW_SHOW);
