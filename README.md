@@ -4,9 +4,9 @@ More/Some docs will come still
 
 ## Build Status
 
-[![Build Status](https://dev.azure.com/beeming/github/_apis/build/status/Gordon-Beeming.Expose-https-dev-site-using-ngrok-and-Cloudflare?branchName=master)](https://dev.azure.com/beeming/github/_build/latest?definitionId=25&branchName=master)
+[![Build Status](https://dev.azure.com/beeming/github/_apis/build/status/Gordon-Beeming.Expose?branchName=master)](https://dev.azure.com/beeming/github/_build/latest?definitionId=33&branchName=master)
 
-[![pre release](https://vsrm.dev.azure.com/beeming/_apis/public/Release/badge/a27e725c-09d0-4cc4-bb6c-f9d5c4ec5cfd/1/1)](https://dev.azure.com/beeming/github/_release?definitionId=1&_a=releases&view=mine)
+[![release](https://vsrm.dev.azure.com/beeming/_apis/public/Release/badge/a27e725c-09d0-4cc4-bb6c-f9d5c4ec5cfd/1/1)](https://dev.azure.com/beeming/github/_release?definitionId=1&_a=releases&view=mine)
 
 ## Basic overview
 
