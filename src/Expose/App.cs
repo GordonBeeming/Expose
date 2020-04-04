@@ -60,6 +60,12 @@ namespace Expose
             return Commands.ExposeSecurePort;
           }
           break;
+        case "http":
+          if (args[2].Equals("as", StringComparison.InvariantCultureIgnoreCase))
+          {
+            return Commands.ExposeHttp;
+          }
+          break;
       }
       return null;
     }
@@ -84,6 +90,7 @@ __*Usage*__
 __*=====*__
 expose {Commands.ExposePortCmd}
 expose {Commands.ExposeSecurePortCmd}
+expose {Commands.ExposeHttpCmd}
 
 ");
     }

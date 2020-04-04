@@ -19,11 +19,27 @@ namespace Expose
     internal const string ExposeSecurePortCmd = "[s-port] <443> as <ngrok-site>";
     internal static Task ExposeSecurePort(string[] args)
     {
+      if (!int.TryParse(args[1], out int portNumber))
+      {
+        App.ShowMenuWithError("Port Number or HTTP Path needs to be a valid integer or url for example https://beeming.dev!");
+        return Task.CompletedTask;
+      }
       return ExposePortPrivate(args, "http ");
     }
 
     internal const string ExposePortCmd = "[port] <80> as <ngrok-site>";
     internal static Task ExposePort(string[] args)
+    {
+      if (!int.TryParse(args[1], out int portNumber))
+      {
+        App.ShowMenuWithError("Port Number or HTTP Path needs to be a valid integer or url for example https://beeming.dev!");
+        return Task.CompletedTask;
+      }
+      return ExposePortPrivate(args, "http ");
+    }
+
+    internal const string ExposeHttpCmd = "[http] <url> as <ngrok-site>";
+    internal static Task ExposeHttp(string[] args)
     {
       return ExposePortPrivate(args, "http ");
     }
