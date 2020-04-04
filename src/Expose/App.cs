@@ -30,6 +30,8 @@ namespace Expose
           return Settings.SetCloudflareAuthKey;
         case "set.cf.config.zoneid":
           return Settings.SetCloudflareZoneId;
+        case "set.cf.config.cname":
+          return Settings.SetCloudflareCNameContent;
         case "set.cf.config.zone":
           return CloudflareService.SetZoneId;
         case "set.ngrok.dns.wildcard":
@@ -76,6 +78,7 @@ expose {Settings.SetCloudflareZoneIdCmd} __*OR*__ expose {CloudflareService.SetZ
 expose {Settings.SetNGrokDnsWildCardRecordCmd}
 expose {Settings.SetNGrokSubDomainIncludeCmd}
 expose {Settings.SetNGrokRegionCodeCmd}
+expose {Settings.SetCloudflareCNameContentCmd}
 
 __*Usage*__
 __*=====*__
